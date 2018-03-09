@@ -6,6 +6,7 @@ import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -39,11 +40,14 @@ public class GetSign {
     }
 
     public static List<String> getSign(Map<String, String> map) {
-       List<String> lists =new ArrayList<>();
+        List<String> lists = new ArrayList<>();
 
-        String ts = getTimeStamp();
+        Map<String, String> mReturnMap = new HashMap<>();
+
+
+        String Ts = getTimeStamp();
         map.put("Key", "a3a665be98dc60e212365ee77979cdsh");
-        map.put("Ts", ts);
+        map.put("Ts", Ts);
 
         CollatorComparator comparator = new CollatorComparator();
 // 将map.entrySet()转换成list
@@ -58,8 +62,10 @@ public class GetSign {
         stringBuffer.deleteCharAt(stringBuffer.length() - 1);
 
         String Sign = Md5(stringBuffer.toString());
-        lists.add(Sign);
-        lists.add(ts);
+
+        mReturnMap.put("sign", Sign);
+        mReturnMap.put("ts", Ts);
+
         return lists;
     }
 

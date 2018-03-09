@@ -68,12 +68,12 @@ public class SplashActivity extends BaseActivity {
     @Override
     protected void initData() {
 
-//        addSubscription(AppClient.getApiService().getNews(), new SubscriberCallBack<List<News>>() {
-//            @Override
-//            protected void onSuccess(List<News> response) {
-//                showToast(response.get(0).getCName().toString());
-//            }
-//        });
+        addSubscription(AppClient.getApiService().getNews(), new SubscriberCallBack<List<News>>() {
+            @Override
+            protected void onSuccess(List<News> response) {
+                showToast(response.get(0).getCName().toString());
+            }
+        });
 
         mSubscription = RxCountDown.countDown(COUT_DOWN_TIME)
                 .doOnSubscribe(new Action0() {
@@ -104,17 +104,17 @@ public class SplashActivity extends BaseActivity {
 
     }
 
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        if (mSubscription != null && !mSubscription.isUnsubscribed())
-            mSubscription.unsubscribe();
-    }
+//    @Override
+//    protected void onDestroy() {
+//        super.onDestroy();
+//        if (mSubscription != null && !mSubscription.isUnsubscribed())
+//            mSubscription.unsubscribe();
+//    }
 
 
     private void goMain() {
-        if (mSubscription != null && !mSubscription.isUnsubscribed())
-            mSubscription.unsubscribe();
+//        if (mSubscription != null && !mSubscription.isUnsubscribed())
+//            mSubscription.unsubscribe();
         forward(MainActivity.class);
         FinishAct();
     }

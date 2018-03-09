@@ -212,14 +212,6 @@ public abstract class BaseActivity extends AppCompatActivity {
     }
 
 
-    public boolean isNowUser(String user) {
-        if (user.equals(getSharedPreference("userid"))) {
-            return true;
-        } else {
-            return false;
-        }
-    }
-
 
     public void onPause() {
         super.onPause();
@@ -230,6 +222,7 @@ public abstract class BaseActivity extends AppCompatActivity {
 
     //RXjava取消注册，以避免内存泄露
     public void onUnsubscribe() {
+        XutilsHttp.getInstance().Cancle();
         if (mCompositeSubscription != null && mCompositeSubscription.hasSubscriptions()) {
             mCompositeSubscription.unsubscribe();
         }

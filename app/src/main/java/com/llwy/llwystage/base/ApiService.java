@@ -4,8 +4,10 @@ package com.llwy.llwystage.base;
 import com.llwy.llwystage.model.News;
 
 import java.util.List;
+import java.util.Map;
 
 import retrofit2.http.GET;
+import retrofit2.http.QueryMap;
 import rx.Observable;
 
 /**
@@ -23,7 +25,11 @@ public interface ApiService {
     @GET("P/TopCategory")
     Observable<ResultResponse<List<News>>> getNews();
 
-
+    /**
+     * 获取新闻数据列表
+     */
+    @GET("P/TopCategory")
+    Observable<ResultResponse<List<News>>> getNew(@QueryMap Map<String, String> map);
 //    /**
 //     * 获取新闻数据列表
 //     */

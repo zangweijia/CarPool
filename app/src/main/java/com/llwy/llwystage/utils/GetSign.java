@@ -39,8 +39,7 @@ public class GetSign {
         return null;
     }
 
-    public static List<String> getSign(Map<String, String> map) {
-        List<String> lists = new ArrayList<>();
+    public static Map<String, String> getSign(Map<String, String> map) {
 
         Map<String, String> mReturnMap = new HashMap<>();
 
@@ -66,7 +65,7 @@ public class GetSign {
         mReturnMap.put("sign", Sign);
         mReturnMap.put("ts", Ts);
 
-        return lists;
+        return mReturnMap;
     }
 
     /**

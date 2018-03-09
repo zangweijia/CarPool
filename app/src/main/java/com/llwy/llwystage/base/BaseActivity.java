@@ -9,6 +9,7 @@ import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.os.PowerManager;
 import android.support.v4.app.FragmentActivity;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -20,6 +21,7 @@ import com.llwy.llwystage.R;
 import com.llwy.llwystage.utils.AppManager;
 import com.llwy.llwystage.utils.CustomToast;
 import com.llwy.llwystage.utils.StatusBarCompat;
+import com.llwy.llwystage.utils.ToastUtils;
 
 
 import java.util.List;
@@ -31,8 +33,7 @@ import rx.schedulers.Schedulers;
 import rx.subscriptions.CompositeSubscription;
 
 
-public abstract class BaseActivity extends FragmentActivity implements
-        OnClickListener {
+public abstract class BaseActivity extends AppCompatActivity {
     protected Context ct;
     private boolean isActive;
     protected View emptyview;
@@ -65,9 +66,8 @@ public abstract class BaseActivity extends FragmentActivity implements
     protected void onDestroy() {
         // TODO Auto-generated method stub
         super.onDestroy();
-        AppManager.getAppManager().finishActivity(this);
+        onUnsubscribe();
     }
-
 
 
     @Override
@@ -76,9 +76,6 @@ public abstract class BaseActivity extends FragmentActivity implements
             //app 进入后台
             isActive = false;//记录当前已经进入后台
             Log.i("ACTIVITY", "程序进入后台");
-
-            putSharedPreferences("isHT", "1");
-
         }
         super.onStop();
     }
@@ -162,30 +159,14 @@ public abstract class BaseActivity extends FragmentActivity implements
     }
 
 
-
     protected void showToast(String msg) {
-        showToast(msg, 0);
+        ToastUtils.showToast(msg);
     }
-
-    protected void showToast(String msg, int time) {
-        CustomToast customToast = new CustomToast(ct, msg, time);
-        customToast.show();
-    }
-
-
-
-    @Override
-    protected void onActivityResult(int arg0, int arg1, Intent arg2) {
-        // TODO Auto-generated method stub
-        super.onActivityResult(arg0, arg1, arg2);
-    }
-
 
     protected abstract void initView();
 
     protected abstract void initData();
 
-    protected abstract void processClick(View v);
 
     /**
      * 设置首选项
@@ -198,7 +179,6 @@ public abstract class BaseActivity extends FragmentActivity implements
         shared.putString(key, value);
         shared.commit();
     }
-
 
 
     /**
@@ -239,9 +219,6 @@ public abstract class BaseActivity extends FragmentActivity implements
             return false;
         }
     }
-
-
-
 
 
     public void onPause() {

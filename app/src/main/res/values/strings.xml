@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">LLWYStage</string>
+    <string name="splash_ad_ignore">跳过广告</string>
 </resources>

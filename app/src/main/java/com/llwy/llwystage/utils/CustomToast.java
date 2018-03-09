@@ -14,18 +14,18 @@ public class CustomToast extends Toast {
 	private String text;
 	private View view;
 	private int time;
-	private Context context;
+	private Context contexts;
 	
 	public CustomToast(Context context, String text, int time) {
 		super(context);
-		this.context = context;
+		this.contexts = context;
 		this.text = text;
 		this.time = time;
 		init();
 	}
 	
 	private void init() {
-		view = View.inflate(context, R.layout.custom_toast, null);
+		view = View.inflate(contexts, R.layout.custom_toast, null);
 		setView(view);
 		textView = (TextView) view.findViewById(R.id.textView);
 		textView.setText(text);

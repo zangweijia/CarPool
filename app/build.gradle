@@ -17,6 +17,15 @@ android {
         }
     }
 }
+allprojects {
+    repositories {
+        maven {
+            url "https://jitpack.io"
+        }
+        google()
+    }
+
+}
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
@@ -25,4 +34,25 @@ dependencies {
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'com.android.support.test:runner:1.0.1'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.1'
+
+    compile 'com.github.CymChad:BaseRecyclerViewAdapterHelper:2.9.17'
+    compile 'com.android.support:recyclerview-v7:26.1.0'
+
+    //********* retorfit + okhttp +Rxjava *********
+    compile 'com.squareup.retrofit2:retrofit:2.0.2'
+    compile 'com.squareup.okhttp3:logging-interceptor:3.1.2'
+    compile 'com.squareup.retrofit2:converter-gson:2.0.2'
+    compile 'com.squareup.retrofit2:adapter-rxjava:2.0.2'
+    compile 'com.squareup.retrofit2:converter-scalars:2.0.2'
+    compile 'io.reactivex:rxandroid:1.1.0'
+    compile 'io.reactivex:rxjava:1.1.0'
+    //********* retorfit *********
+
+    //弹窗
+    compile 'com.dou361.dialogui:jjdxm-dialogui:1.0.3'
+    //拍照
+    compile 'cn.finalteam:galleryfinal:1.4.6'
+    compile 'com.zxy.android:tiny:0.1.0'
+    compile 'com.google.code.gson:gson:2.6.2'
+
 }

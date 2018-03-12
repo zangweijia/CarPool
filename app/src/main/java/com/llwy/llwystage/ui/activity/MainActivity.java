@@ -8,6 +8,8 @@ import com.llwy.llwystage.base.BaseActivity;
  */
 
 public class MainActivity extends BaseActivity {
+
+
     @Override
     protected void initView() {
         setContentView(R.layout.activity_main);

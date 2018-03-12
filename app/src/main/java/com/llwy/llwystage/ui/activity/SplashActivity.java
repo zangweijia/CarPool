@@ -1,7 +1,5 @@
 package com.llwy.llwystage.ui.activity;
 
-import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
 import android.view.Window;
@@ -13,15 +11,14 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.llwy.llwystage.R;
-import com.llwy.llwystage.base.AppClient;
 import com.llwy.llwystage.base.BaseActivity;
-import com.llwy.llwystage.base.SubscriberCallBack;
-import com.llwy.llwystage.model.News;
-import com.llwy.llwystage.utils.AppManager;
+import com.llwy.llwystage.base.Constants;
 import com.llwy.llwystage.utils.ImageLoaderUtils;
 import com.llwy.llwystage.utils.RxCountDown;
+import com.llwy.llwystage.utils.SignUtil;
 
-import java.util.List;
+import java.util.HashMap;
+import java.util.Map;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -68,18 +65,18 @@ public class SplashActivity extends BaseActivity {
     @Override
     protected void initData() {
 
-        addSubscription(AppClient.getApiService().getNews(), new SubscriberCallBack<List<News>>() {
-            @Override
-            protected void onSuccess(List<News> response) {
-                showToast(response.get(0).getCName().toString());
-            }
-        });
-
+//        addSubscription(AppClient.getApiService().getNews(), new SubscriberCallBack<List<News>>() {
+//            @Override
+//            protected void onSuccess(List<News> response) {
+//                showToast(response.get(0).getCName().toString());
+//            }
+//        });
+//
         mSubscription = RxCountDown.countDown(COUT_DOWN_TIME)
                 .doOnSubscribe(new Action0() {
                     @Override
                     public void call() {
-                        ImageLoaderUtils.displayBigImage("https://ss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=2070678725,1620419579&fm=27&gp=0.jpg", mSplashView);
+                        ImageLoaderUtils.displayBigImage(Constants.SplashImgUrl, mSplashView);
                         mAdClickSmall.setVisibility(View.VISIBLE);
                         mSplashView.setVisibility(View.VISIBLE);
                         mAdIgnore.setVisibility(View.VISIBLE);
@@ -104,18 +101,14 @@ public class SplashActivity extends BaseActivity {
 
     }
 
-//    @Override
-//    protected void onDestroy() {
-//        super.onDestroy();
-//        if (mSubscription != null && !mSubscription.isUnsubscribed())
-//            mSubscription.unsubscribe();
-//    }
-
-
     private void goMain() {
-//        if (mSubscription != null && !mSubscription.isUnsubscribed())
-//            mSubscription.unsubscribe();
+
+        if (mSubscription != null && !mSubscription.isUnsubscribed())
+            mSubscription.unsubscribe();
+
         forward(MainActivity.class);
         FinishAct();
     }
+
+
 }

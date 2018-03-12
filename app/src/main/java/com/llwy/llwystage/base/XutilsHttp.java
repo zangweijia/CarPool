@@ -26,22 +26,24 @@ public class XutilsHttp {
      *
      * @return
      */
-//	private volatile static XutilsHttp instance;
-//	public static XutilsHttp getInstance() {
-//		if (instance == null) {
-//			instance = new XutilsHttp();
-//		}
-//		return instance;
-//
-//
-//	}
+
+//    public static XutilsHttp instance = new XutilsHttp();
+//    public static XutilsHttp getInstance() {
+//        return instance;
+//    }
 
 
-    public static XutilsHttp instance = new XutilsHttp();
-
-    public static XutilsHttp getInstance() {
+    private static XutilsHttp instance = null;
+    public static synchronized XutilsHttp getInstance() {
+        // 这个方法比上面有所改进，不用每次都进行生成对象，只是第一次
+        // 使用时生成实例，提高了效率！
+        if (instance == null)
+            instance = new XutilsHttp();
         return instance;
     }
+
+
+
 
     /**
      * 异步get请求
@@ -50,7 +52,7 @@ public class XutilsHttp {
      * @param maps
      * @param callBack
      */
-    public void get(String url, Map<String, String> maps, final XCallBack callBack, final Context context) {
+    public void Get(String url, Map<String, String> maps, final XCallBack callBack, final Context context) {
         RequestParams params = new RequestParams(url);
         if (maps != null && !maps.isEmpty()) {
             for (Map.Entry<String, String> entry : maps.entrySet()) {
@@ -82,7 +84,6 @@ public class XutilsHttp {
 
     }
 
-
     /**
      * 异步post请求
      *
@@ -90,7 +91,7 @@ public class XutilsHttp {
      * @param maps
      * @param callback
      */
-    public void post(String url, Map<String, String> maps, final XCallBack callback, final Context context) {
+    public void Post(String url, Map<String, String> maps, final XCallBack callback, final Context context) {
         RequestParams params = new RequestParams(url);
         JSONObject jsonObject = new JSONObject();
         try {
@@ -145,11 +146,12 @@ public class XutilsHttp {
             for (Map.Entry<String, String> entry : maps.entrySet()) {
                 params.addQueryStringParameter(entry.getKey(), entry.getValue());
             }
+            params.setAsJsonContent(true);
         }
+
         utils = x.http().get(params, new Callback.CacheCallback<String>() {
             @Override
             public void onSuccess(String result) {
-
                 callback.onResponse(result);
             }
 
@@ -194,11 +196,20 @@ public class XutilsHttp {
                           final Context context) {
         RequestParams params = new RequestParams(url);
 
-        if (maps != null && !maps.isEmpty()) {
-            for (Map.Entry<String, String> entry : maps.entrySet()) {
-                params.addBodyParameter(entry.getKey(), entry.getValue());
+        JSONObject jsonObject = new JSONObject();
+        try {
+            if (maps != null && !maps.isEmpty()) {
+                maps.remove("Key");
+                for (Map.Entry<String, String> entry : maps.entrySet()) {
+                    jsonObject.put(entry.getKey(), entry.getValue());
+                }
+                params.setAsJsonContent(true);
+                params.setBodyContent(jsonObject.toString());
             }
+        } catch (JSONException e) {
+            e.printStackTrace();
         }
+
         utils = x.http().post(params, new Callback.CacheCallback<String>() {
             @Override
             public void onSuccess(String result) {
@@ -238,33 +249,22 @@ public class XutilsHttp {
      *
      * @param iv
      * @param url
-     * @param option
      * @param id     默认图Id
      */
-    public void bindCommonImage(ImageView iv, String url, boolean option, int id) {
-        if (option) {
+    public void BindCommonImage(ImageView iv, String url,  int id) {
             options = new ImageOptions.Builder().setFailureDrawableId(id).build();
             x.image().bind(iv, url, options);
-        } else {
-            x.image().bind(iv, url);
-        }
     }
 
     /**
-     * 圆形图片显示
-     *
-     * @param iv
-     * @param url
-     * @param option
-     * @param id     默认图Id
+     * ImageView 显示圆形图片
      */
-    public void bindCircularImage(ImageView iv, String url, boolean option, int id) {
-        if (option) {
-            options = new ImageOptions.Builder().setFailureDrawableId(id).setCircular(true).build();
-            x.image().bind(iv, url, options);
-        } else {
-            x.image().bind(iv, url);
-        }
+    public void BindCircleImage(ImageView iv, String url, int imgId) {
+        options = new ImageOptions.Builder()
+                .setFailureDrawableId(imgId)
+                .setCircular(true).build();
+        x.image().bind(iv, url, options);
+
     }
 
     /**
@@ -275,8 +275,8 @@ public class XutilsHttp {
      * @param file
      * @param callback
      */
-    public void upLoadFile(String url, Map<String, String> maps, Map<String, File> file, final XCallBack callback,
-                           Context context) {
+    public void upLoadFile( Context context,String url, Map<String, String> maps, Map<String, File> file, final XCallBack callback
+                          ) {
         RequestParams params = new RequestParams(url);
         if (maps != null && !maps.isEmpty()) {
             for (Map.Entry<String, String> entry : maps.entrySet()) {

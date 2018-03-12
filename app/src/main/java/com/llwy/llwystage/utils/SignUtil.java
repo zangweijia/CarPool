@@ -1,6 +1,8 @@
 package com.llwy.llwystage.utils;
 
 
+import com.llwy.llwystage.base.Constants;
+
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
@@ -9,9 +11,21 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.TreeMap;
 
+import cn.finalteam.toolsfinal.StringUtils;
 
-public class GetSign {
+/**
+ * 获取参数签名类
+ */
+public class SignUtil {
+
+    /**
+     * String  MD5加密返回32位
+     *
+     * @param plainText
+     * @return
+     */
     public static String Md5(String plainText) {
         try {
             MessageDigest md = MessageDigest.getInstance("MD5");
@@ -39,17 +53,23 @@ public class GetSign {
         return null;
     }
 
-    public static Map<String, String> getSign(Map<String, String> map) {
+    /**
+     * 获取签名 不区分大小写
+     *
+     * @param map
+     * @return
+     */
+    public static Map<String, String> GetSign(Map<String, String> map) {
+        List<String> lists = new ArrayList<>();
 
         Map<String, String> mReturnMap = new HashMap<>();
 
-
-        String Ts = getTimeStamp();
-        map.put("Key", "a3a665be98dc60e212365ee77979cdsh");
-        map.put("Ts", Ts);
+        String ts = getTimeStamp();
+        map.put("Key", Constants.KEY);
+        map.put("Ts", ts);
 
         CollatorComparator comparator = new CollatorComparator();
-// 将map.entrySet()转换成list
+        // 将map.entrySet()转换成list
         List<Map.Entry<String, String>> list = new ArrayList<Map.Entry<String, String>>(map.entrySet());
         // 通过比较器来实现排序
         Collections.sort(list, comparator);
@@ -63,7 +83,43 @@ public class GetSign {
         String Sign = Md5(stringBuffer.toString());
 
         mReturnMap.put("sign", Sign);
-        mReturnMap.put("ts", Ts);
+        mReturnMap.put("ts", ts);
+
+        return mReturnMap;
+    }
+
+    /**
+     * 获取签名  区分大小写
+     *
+     * @param params
+     * @return
+     */
+    public static Map<String, String> GetSignNew(Map<String, String> params) {
+        String ts = getTimeStamp();
+        params.put("Key", Constants.KEY);
+        params.put("Ts", ts);
+        //**************************排序
+        Map<String, String> sortMap = new TreeMap<String, String>();
+        sortMap.putAll(params);
+        // 以k1=v1&k2=v2...方式拼接参数
+        StringBuilder builder = new StringBuilder();
+        for (Map.Entry<String, String> s : sortMap.entrySet()) {
+            String k = s.getKey();
+            String v = s.getValue();
+            if (StringUtils.isBlank(v)) {// 过滤空值
+                continue;
+            }
+            builder.append(k).append("=").append(v).append("&");
+        }
+        if (!sortMap.isEmpty()) {
+            builder.deleteCharAt(builder.length() - 1);
+        }
+        ///***************  排序后返回 String
+
+        String Sign = Md5(builder.toString());
+        Map<String, String> mReturnMap = new HashMap<>();
+        mReturnMap.put("sign", Sign);
+        mReturnMap.put("ts", ts);
 
         return mReturnMap;
     }

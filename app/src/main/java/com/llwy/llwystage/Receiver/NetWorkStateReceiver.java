@@ -52,13 +52,12 @@ public class NetWorkStateReceiver extends BroadcastReceiver {
             //用于存放网络连接信息
             StringBuilder sb = new StringBuilder();
             if (networks.length > 0) {
-                //通过循环将网络信息逐个取出来
-                for (int i = 0; i < networks.length; i++) {
-                    //获取ConnectivityManager对象对应的NetworkInfo对象
-                    NetworkInfo networkInfo = connMgr.getNetworkInfo(networks[i]);
-                    sb.append(networkInfo.getTypeName() + " connect is " + networkInfo.isConnected());
-                }
-
+//                //通过循环将网络信息逐个取出来
+//                for (int i = 0; i < networks.length; i++) {
+//                    //获取ConnectivityManager对象对应的NetworkInfo对象
+//                    NetworkInfo networkInfo = connMgr.getNetworkInfo(networks[i]);
+//                    sb.append(networkInfo.getTypeName() + " connect is " + networkInfo.isConnected());
+//                }
                 Toast.makeText(context, "网络已连接", Toast.LENGTH_SHORT).show();
             } else {
                 Toast.makeText(context, "已断开，网络连接", Toast.LENGTH_SHORT).show();
@@ -67,5 +66,8 @@ public class NetWorkStateReceiver extends BroadcastReceiver {
 
         }
     }
+
+
+
 }
 

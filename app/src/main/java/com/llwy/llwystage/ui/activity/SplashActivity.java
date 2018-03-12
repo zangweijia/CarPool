@@ -10,6 +10,7 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.android.tu.loadingdialog.LoadingDailog;
 import com.llwy.llwystage.R;
 import com.llwy.llwystage.base.BaseActivity;
 import com.llwy.llwystage.base.Constants;
@@ -17,9 +18,12 @@ import com.llwy.llwystage.utils.ImageLoaderUtils;
 import com.llwy.llwystage.utils.RxCountDown;
 import com.llwy.llwystage.utils.SignUtil;
 
+import org.xutils.x;
+
 import java.util.HashMap;
 import java.util.Map;
 
+import androidkun.com.versionupdatelibrary.entity.VersionUpdateConfig;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import rx.Subscriber;
@@ -64,14 +68,15 @@ public class SplashActivity extends BaseActivity {
 
     @Override
     protected void initData() {
+//        LoadingDailog.Builder loadBuilder =
+//                new LoadingDailog.Builder(ct)
+//                        .setMessage("加载中...")
+//                        .setCancelable(true)
+//                        .setCancelOutside(true);
+//        LoadingDailog dialog = loadBuilder.create();
+//        dialog.show();
 
-//        addSubscription(AppClient.getApiService().getNews(), new SubscriberCallBack<List<News>>() {
-//            @Override
-//            protected void onSuccess(List<News> response) {
-//                showToast(response.get(0).getCName().toString());
-//            }
-//        });
-//
+
         mSubscription = RxCountDown.countDown(COUT_DOWN_TIME)
                 .doOnSubscribe(new Action0() {
                     @Override
@@ -108,7 +113,16 @@ public class SplashActivity extends BaseActivity {
 
         forward(MainActivity.class);
         FinishAct();
-    }
 
+//        VersionUpdateConfig.getInstance()//获取配置实例
+//                .setContext(this)//设置上下文
+//                .setDownLoadURL("http://api.chuanchebao.com/down/android.apk")//设置文件下载链接
+//                .setNewVersion("1.0.3")//设置即将下载的APK的版本号,避免重复下载
+//                //  .setFileSavePath(savePath)//设置文件保存路径（可不设置）
+//                .setNotificationIconRes(R.mipmap.ic_launcher)//设置通知图标
+//                .setNotificationSmallIconRes(R.mipmap.ic_launcher)//设置通知小图标
+//                .setNotificationTitle("版本升级Demo")//设置通知标题
+//                .startDownLoad();//开始下载
+    }
 
 }

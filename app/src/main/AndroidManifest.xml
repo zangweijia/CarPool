@@ -13,8 +13,17 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.Light.NoActionBar">
-        <activity android:name=".ui.activity.SplashActivity"
-              >
+
+        <receiver android:name=".Receiver.NetWorkStateReceiver">
+            <intent-filter>
+                //检测网络变化的acton
+                <action android:name="android.net.conn.CONNECTIVITY_CHANGE" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </receiver>
+
+
+        <activity android:name=".ui.activity.SplashActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -23,7 +32,7 @@
         </activity>
 
 
-        <activity android:name=".ui.activity.MainActivity"/>
+        <activity android:name=".ui.activity.MainActivity" />
 
     </application>
 

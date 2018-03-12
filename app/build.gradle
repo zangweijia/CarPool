@@ -5,7 +5,7 @@ android {
     defaultConfig {
         applicationId "com.llwy.llwystage"
         minSdkVersion 16
-        targetSdkVersion 26
+        targetSdkVersion 23
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
@@ -16,6 +16,7 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+
 }
 allprojects {
     repositories {
@@ -61,5 +62,11 @@ dependencies {
     annotationProcessor 'com.jakewharton:butterknife-compiler:8.5.1'
 
     compile 'com.nostra13.universalimageloader:universal-image-loader:1.9.5'
+    // 一键更新
+    compile 'com.androidkun:xversionupdate:1.0.5'
+    //等待框
+    compile 'com.github.gittjy:LoadingDialog:1.0.2'
+    // JS 交互控件
+    compile 'com.github.lzyzsd:jsbridge:1.0.4'
 
 }

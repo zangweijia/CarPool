@@ -1,0 +1,62 @@
+<resources>
+    <!-- Default screen margins, per the Android Design guidelines. -->
+
+    <dimen name="text_size_30">30sp</dimen>
+    <dimen name="text_size_29">29sp</dimen>
+    <dimen name="text_size_28">28sp</dimen>
+    <dimen name="text_size_27">27sp</dimen>
+    <dimen name="text_size_26">26sp</dimen>
+    <dimen name="text_size_25">25sp</dimen>
+    <dimen name="text_size_24">24sp</dimen>
+    <dimen name="text_size_23">23sp</dimen>
+    <dimen name="text_size_22">22sp</dimen>
+    <dimen name="text_size_21">21sp</dimen>
+    <dimen name="text_size_20">20sp</dimen>
+    <dimen name="text_size_19">19sp</dimen>
+    <dimen name="text_size_18">18sp</dimen>
+    <dimen name="text_size_17">17sp</dimen>
+    <dimen name="text_size_16">16sp</dimen>
+    <dimen name="text_size_15">15sp</dimen>
+    <dimen name="text_size_14">14sp</dimen>
+    <dimen name="text_size_13">13sp</dimen>
+    <dimen name="text_size_12">11sp</dimen>
+    <dimen name="text_size_11">11sp</dimen>
+    <dimen name="text_size_10">10sp</dimen>
+    <dimen name="text_size_09">9sp</dimen>
+
+
+    <dimen name="w_1dp">1dp</dimen>
+    <dimen name="w_2dp">2dp</dimen>
+    <dimen name="w_3dp">3dp</dimen>
+    <dimen name="w_4dp">4dp</dimen>
+    <dimen name="w_5dp">5dp</dimen>
+    <dimen name="w_6dp">6dp</dimen>
+    <dimen name="w_7dp">7dp</dimen>
+    <dimen name="w_8dp">8dp</dimen>
+    <dimen name="w_9dp">9dp</dimen>
+    <dimen name="w_10dp">10dp</dimen>
+    <dimen name="w_12dp">12dp</dimen>
+    <dimen name="w_13dp">13dp</dimen>
+    <dimen name="w_14dp">14dp</dimen>
+    <dimen name="w_15dp">15dp</dimen>
+    <dimen name="w_20dp">20dp</dimen>
+    <dimen name="w_22dp">22dp</dimen>
+    <dimen name="w_25dp">25dp</dimen>
+    <dimen name="w_30dp">30dp</dimen>
+    <dimen name="w_35dp">35dp</dimen>
+    <dimen name="w_40dp">40dp</dimen>
+    <dimen name="w_44dp">44dp</dimen>
+    <dimen name="w_50dp">50dp</dimen>
+    <dimen name="w_60dp">60dp</dimen>
+    <dimen name="w_70dp">70dp</dimen>
+    <dimen name="w_80dp">80dp</dimen>
+    <dimen name="w_90dp">90dp</dimen>
+    <dimen name="w_100dp">100dp</dimen>
+    <dimen name="w_150dp">150dp</dimen>
+    <dimen name="w_200dp">200dp</dimen>
+    <dimen name="w_250dp">250dp</dimen>
+    <dimen name="w_300dp">300dp</dimen>
+    <dimen name="w_350dp">350dp</dimen>
+    <dimen name="w_400dp">400dp</dimen>
+
+</resources>

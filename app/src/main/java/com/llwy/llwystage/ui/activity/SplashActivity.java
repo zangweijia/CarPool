@@ -14,6 +14,7 @@ import com.android.tu.loadingdialog.LoadingDailog;
 import com.llwy.llwystage.R;
 import com.llwy.llwystage.base.BaseActivity;
 import com.llwy.llwystage.base.Constants;
+import com.llwy.llwystage.presenter.LoginPresenter;
 import com.llwy.llwystage.utils.ImageLoaderUtils;
 import com.llwy.llwystage.utils.RxCountDown;
 import com.llwy.llwystage.utils.SignUtil;
@@ -32,7 +33,7 @@ import rx.functions.Action0;
 
 public class SplashActivity extends BaseActivity {
 
-    final int COUT_DOWN_TIME = 5;
+    final int COUT_DOWN_TIME = 3;
     private Subscription mSubscription;
 
 
@@ -121,7 +122,7 @@ public class SplashActivity extends BaseActivity {
 //                //  .setFileSavePath(savePath)//设置文件保存路径（可不设置）
 //                .setNotificationIconRes(R.mipmap.ic_launcher)//设置通知图标
 //                .setNotificationSmallIconRes(R.mipmap.ic_launcher)//设置通知小图标
-//                .setNotificationTitle("版本升级Demo")//设置通知标题
+//                .setNotificationTitle("版本升级Demo")//设置通知标题q
 //                .startDownLoad();//开始下载
     }
 

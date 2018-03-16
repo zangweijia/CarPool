@@ -59,11 +59,7 @@ public class SignUtil {
      * @param map
      * @return
      */
-    public static Map<String, String> GetSign(Map<String, String> map) {
-        List<String> lists = new ArrayList<>();
-
-        Map<String, String> mReturnMap = new HashMap<>();
-
+    public static   String  GetSign(Map<String, String> map) {
         String ts = getTimeStamp();
         map.put("Key", Constants.KEY);
         map.put("Ts", ts);
@@ -82,10 +78,9 @@ public class SignUtil {
 
         String Sign = Md5(stringBuffer.toString());
 
-        mReturnMap.put("sign", Sign);
-        mReturnMap.put("ts", ts);
+        map.remove("Key");
 
-        return mReturnMap;
+        return Sign;
     }
 
     /**
@@ -94,7 +89,7 @@ public class SignUtil {
      * @param params
      * @return
      */
-    public static Map<String, String> GetSignNew(Map<String, String> params) {
+    public static String GetSignNew(Map<String, String> params) {
         String ts = getTimeStamp();
         params.put("Key", Constants.KEY);
         params.put("Ts", ts);
@@ -117,11 +112,10 @@ public class SignUtil {
         ///***************  排序后返回 String
 
         String Sign = Md5(builder.toString());
-        Map<String, String> mReturnMap = new HashMap<>();
-        mReturnMap.put("sign", Sign);
-        mReturnMap.put("ts", ts);
 
-        return mReturnMap;
+        params.remove("Key");
+
+        return Sign;
     }
 
     /**

@@ -18,10 +18,14 @@ import android.view.Window;
 import android.view.WindowManager;
 
 import com.llwy.llwystage.R;
+import com.llwy.llwystage.listener.RefreshListener;
 import com.llwy.llwystage.utils.AppManager;
 import com.llwy.llwystage.utils.CustomToast;
 import com.llwy.llwystage.utils.StatusBarCompat;
 import com.llwy.llwystage.utils.ToastUtils;
+import com.scwang.smartrefresh.layout.api.RefreshLayout;
+import com.scwang.smartrefresh.layout.listener.OnLoadmoreListener;
+import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 
 
 import java.util.List;
@@ -41,10 +45,6 @@ public abstract class BaseActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         // TODO Auto-generated method stub
-//        requestWindowFeature(Window.FEATURE_NO_TITLE);
-//        //设置全屏
-//        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
-//                WindowManager.LayoutParams.FLAG_FULLSCREEN);
         super.onCreate(savedInstanceState);
         this.requestWindowFeature(Window.FEATURE_NO_TITLE);
         getWindow().setSoftInputMode(
@@ -52,7 +52,6 @@ public abstract class BaseActivity extends AppCompatActivity {
 
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         AppManager.getAppManager().addActivity(this);
-
         StatusBarCompat.compat(this, getResources().getColor(R.color.blue));
 
         ct = this;
@@ -61,14 +60,12 @@ public abstract class BaseActivity extends AppCompatActivity {
         initData();
     }
 
-
     @Override
     protected void onDestroy() {
         // TODO Auto-generated method stub
         super.onDestroy();
         onUnsubscribe();
     }
-
 
     @Override
     protected void onStop() {
@@ -107,7 +104,6 @@ public abstract class BaseActivity extends AppCompatActivity {
         AppManager.getAppManager().finishActivity();
     }
 
-
     public void onResume() {
         if (!isActive) {
             //app 从后台唤醒，进入前台
@@ -116,7 +112,6 @@ public abstract class BaseActivity extends AppCompatActivity {
         }
         super.onResume();
     }
-
 
     /**
      * 判断是否锁屏
@@ -158,7 +153,6 @@ public abstract class BaseActivity extends AppCompatActivity {
         return false;
     }
 
-
     protected void showToast(String msg) {
         ToastUtils.showToast(msg);
     }
@@ -166,7 +160,6 @@ public abstract class BaseActivity extends AppCompatActivity {
     protected abstract void initView();
 
     protected abstract void initData();
-
 
     /**
      * 设置首选项
@@ -179,7 +172,6 @@ public abstract class BaseActivity extends AppCompatActivity {
         shared.putString(key, value);
         shared.commit();
     }
-
 
     /**
      * 删除首选项
@@ -206,12 +198,9 @@ public abstract class BaseActivity extends AppCompatActivity {
         return null;
     }
 
-
     public void showLog(String tag, String str) {
         Log.e(tag, str);
     }
-
-
 
     public void onPause() {
         super.onPause();
@@ -228,7 +217,6 @@ public abstract class BaseActivity extends AppCompatActivity {
         }
     }
 
-
     public void addSubscription(Observable observable, Subscriber subscriber) {
         if (mCompositeSubscription == null) {
             mCompositeSubscription = new CompositeSubscription();
@@ -238,5 +226,55 @@ public abstract class BaseActivity extends AppCompatActivity {
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(subscriber));
     }
+
+
+    protected void addOnScrollListener(int layoutId, final RefreshListener refreshListener) {
+
+        RefreshLayout mRefreshLayout = findViewById(layoutId); //刷新
+        mRefreshLayout.setOnRefreshListener(new OnRefreshListener() {
+            @Override
+            public void onRefresh(RefreshLayout refreshlayout) {
+                refreshListener.OnRefreshListener(refreshlayout);
+            }
+        });
+        //加载更多
+        mRefreshLayout.setOnLoadmoreListener(new OnLoadmoreListener() {
+            @Override
+            public void onLoadmore(RefreshLayout refreshlayout) {
+                refreshListener.OnLoadmoreListener(refreshlayout);
+            }
+        });
+
+
+//        <com.scwang.smartrefresh.layout.SmartRefreshLayout
+//        android:id="@+id/refreshLayout"
+//        android:layout_width="match_parent"
+//        android:layout_height="match_parent"
+//        app:srlAccentColor="#00000000"
+//        app:srlEnablePreviewInEditMode="true"
+//        app:srlPrimaryColor="#00000000">
+//
+//
+//        <com.scwang.smartrefresh.layout.header.ClassicsHeader
+//        android:layout_width="match_parent"
+//        android:layout_height="wrap_content" />
+//
+//        <TextView
+//        android:id="@+id/tv_detaiils"
+//        android:layout_width="match_parent"
+//        android:layout_height="match_parent"
+//        android:background="#ff5400"
+//        android:text="测试" />
+//
+//        <com.scwang.smartrefresh.layout.footer.ClassicsFooter
+//        android:layout_width="match_parent"
+//        android:layout_height="wrap_content" />
+//
+//
+//    </com.scwang.smartrefresh.layout.SmartRefreshLayout>
+
+
+    }
+
 
 }

@@ -1,5 +1,6 @@
 package com.llwy.llwystage.presenter;
 
+import com.llwy.llwystage.base.ApiService;
 import com.llwy.llwystage.base.AppClient;
 import com.llwy.llwystage.base.BasePresenter;
 import com.llwy.llwystage.base.ResultResponse;
@@ -19,24 +20,12 @@ public class BaseDetailPresenter extends BasePresenter<IBaseDetailsView> {
     }
 
     public void getNews(String ste){
-        addSubscription(AppClient.getApiService().getNews(), new SubscriberCallBack<List<News>>() {
+        addSubscription(AppClient.getApiService().getNews( ), new SubscriberCallBack<List<News>>() {
             @Override
             protected void onSuccess(List<News> response) {
                 mvpView.onGetNewsDetails(response);
             }
 
-            @Override
-            protected void onFailure(ResultResponse response) {
-                super.onFailure(response);
-
-            }
-
-            @Override
-            protected void onError() {
-                super.onError();
-
-
-            }
         });
     }
 

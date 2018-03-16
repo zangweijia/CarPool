@@ -9,9 +9,9 @@ public class ResultResponse<T> {
     public String Message;
     public T Data;
 
-    public ResultResponse(String more, String _message, T result) {
-        Result = more;
-        Message = _message;
-        Data = result;
-    }
+//    public ResultResponse(String more, String _message, T result) {
+//        Result = more;
+//        Message = _message;
+//        Data = result;
+//    }
 }

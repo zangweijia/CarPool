@@ -112,7 +112,7 @@ public class SplashActivity extends BaseActivity {
         if (mSubscription != null && !mSubscription.isUnsubscribed())
             mSubscription.unsubscribe();
 
-        forward(MainActivity.class);
+        forward(LoginActivity.class);
         FinishAct();
 
 //        VersionUpdateConfig.getInstance()//获取配置实例
